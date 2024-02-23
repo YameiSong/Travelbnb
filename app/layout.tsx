@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
+import LoginModal from "./components/modals/LoginModal";
+import SignupModal from "./components/modals/SignupModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,13 +17,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const content = (
+    <p>fsag</p>
+  );
+
   return (
     <html lang="en">
+      <head>
+        <script src="http://localhost:8097"></script>
+      </head>
       <body className={inter.className}>
         <Navbar />
         <div className="pt-32">
           {children}
         </div>
+
+        <LoginModal />
+        <SignupModal />
       </body>
     </html>
   );
