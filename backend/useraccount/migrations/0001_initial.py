@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('email', models.EmailField(max_length=254, unique=True)),
                 ('name', models.CharField(blank=True, max_length=255, null=True)),
-                ('avatar', models.ImageField(upload_to='upload/avatars')),
+                ('avatar', models.ImageField(upload_to='uploads/avatars')),
                 ('is_active', models.BooleanField(default=True)),
                 ('is_superuser', models.BooleanField(default=False)),
                 ('is_staff', models.BooleanField(default=False)),
