@@ -1,47 +1,86 @@
-'use client';
+"use client";
 
 import Modal from "./Modal";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import CustomButton from "../forms/CustomButton";
+import apiService from "@/app/services/apiService";
 
 const SignupModal = () => {
-    const SignupModal = useSignupModal();
+  const router = useRouter();
+  const SignupModal = useSignupModal();
+  const [email, setEmail] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [errors, setErrors] = useState<string[]>([]);
 
-    const content = (
-        <form className="space-y-4">
-            <input
-                type="email"
-                placeholder="Your email address"
-                className="w-full h-[54px] border px-4 border-gray-300 rounded-xl"
-            />
-            <input
-                type="password"
-                placeholder="Your password"
-                className="w-full h-[54px] border px-4 border-gray-300 rounded-xl"
-            />
-            <input
-                type="password"
-                placeholder="Repeat password"
-                className="w-full h-[54px] border px-4 border-gray-300 rounded-xl"
-            />
-            <div className="p-5 bg-airbnb text-white rounded-xl opacity-80">
-                the error message
-            </div>
-            <CustomButton
-                label="Submit"
-                onClick={() => console.log("submit")}
-            />
-        </form>
-    );
+  const submitSignup = async () => {
+    const formData = {
+      email: email,
+      password1: password1,
+      password2: password2,
+    };
 
-    return (
-        <Modal
-            isOpen={SignupModal.isOpen}
-            close={SignupModal.close}
-            label="Sign up"
-            content={content}
-        />
-    );
-}
+    const response = await apiService.post("/api/auth/register/", formData);
+
+    if (response.access) {
+      SignupModal.close();
+
+      router.push("/");
+    } else {
+      const tmpErrors: string[] = Object.values(response).map((error: any) => {
+        return error;
+      });
+
+      setErrors(tmpErrors);
+    }
+  };
+
+  const content = (
+    <form action={submitSignup} className="space-y-4">
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        type="email"
+        placeholder="Your email address"
+        className="w-full h-[54px] border px-4 border-gray-300 rounded-xl"
+      />
+      <input
+        onChange={(e) => setPassword1(e.target.value)}
+        type="password"
+        placeholder="Your password"
+        className="w-full h-[54px] border px-4 border-gray-300 rounded-xl"
+      />
+      <input
+        onChange={(e) => setPassword2(e.target.value)}
+        type="password"
+        placeholder="Repeat password"
+        className="w-full h-[54px] border px-4 border-gray-300 rounded-xl"
+      />
+
+      {errors.map((error, index) => {
+        return (
+          <div
+            key={`error-${index}`}
+            className="p-5 bg-airbnb text-white rounded-xl opacity-80"
+          >
+            {error}
+          </div>
+        );
+      })}
+
+      <CustomButton label="Submit" onClick={submitSignup} />
+    </form>
+  );
+
+  return (
+    <Modal
+      isOpen={SignupModal.isOpen}
+      close={SignupModal.close}
+      label="Sign up"
+      content={content}
+    />
+  );
+};
 
 export default SignupModal;
