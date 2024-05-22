@@ -15,16 +15,6 @@ const Categories = () => {
 
             <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-200 hover:opacity-100">
                 <Image
-                    src="/images/icn_category_tinyhomes.jpg"
-                    alt="Category - Tiny homes"
-                    width={20}
-                    height={20}
-                />
-                <span className="text-xs">Ting homes</span>
-            </div>
-
-            <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-200 hover:opacity-100">
-                <Image
                     src="/images/icn_category_omg.jpg"
                     alt="Category - OMG"
                     width={20}
