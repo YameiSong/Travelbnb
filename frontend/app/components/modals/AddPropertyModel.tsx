@@ -57,7 +57,7 @@ const AddPropertyModal = () => {
       formData.append("image", dataImage);
 
       const response = await apiService.post(
-        "/api/properties/create",
+        "/api/properties/create/",
         formData
       );
 
