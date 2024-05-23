@@ -26,7 +26,6 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
             'description',
             'price_per_night',
             'image_url',
-            'address',
             'bedrooms',
             'bathrooms',
             'guests',

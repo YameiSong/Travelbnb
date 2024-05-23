@@ -5,10 +5,18 @@ import { useEffect, useState } from "react";
 import PropertyListItem from "./PropertyListItem";
 
 export type PropertyType = {
-  id: string;
+  id: number;
   title: string;
+  description: string;
+  guests: number;
+  bedrooms: number;
+  bathrooms: number;
   price_per_night: number;
   image_url: string;
+  landlord: {
+      name: string;
+      avatar_url: string;
+  };
 };
 
 const PropertyList = () => {
