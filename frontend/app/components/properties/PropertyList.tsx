@@ -14,16 +14,25 @@ export type PropertyType = {
   price_per_night: number;
   image_url: string;
   landlord: {
-      name: string;
-      avatar_url: string;
+    id: string;
+    name: string;
+    avatar_url: string;
   };
 };
 
-const PropertyList = () => {
+interface PropertyListProps {
+  landord_id: string | null;
+}
+
+const PropertyList: React.FC<PropertyListProps> = ({ landord_id }) => {
   const [properties, setProperties] = useState<PropertyType[]>([]);
 
   const getProperties = async () => {
-    const tmpProperties = await apiService.get('/api/properties/');
+    let url = "/api/properties/";
+    if (landord_id) {
+      url += `?landlord_id=${landord_id}`;
+    }
+    const tmpProperties = await apiService.get(url);
 
     setProperties(tmpProperties.data);
   };
