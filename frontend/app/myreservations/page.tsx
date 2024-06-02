@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import apiService from "../services/apiService";
 
@@ -18,7 +19,7 @@ const MyReservationsPage = async () => {
                   <div className="relative overflow-hidden aspect-square rounded-xl">
                     <Image
                       fill
-                      src="/images/property_beachfront_newcastle.webp"
+                      src={reservation.property.image_url}
                       className="hover:scale-110 object-cover transition h-full w-full"
                       alt="beach house"
                     />
@@ -27,20 +28,24 @@ const MyReservationsPage = async () => {
                 <div className="col-span-1 md:col-span-3 space-y-2">
                   <h2 className="mb-4 text-xl">{reservation.property.title}</h2>
                   <p>
-                    <strong>Check in date:</strong> {reservation.property.start_date}
+                    <strong>Check in date:</strong> {reservation.start_date}
                   </p>
                   <p>
-                    <strong>Check out date:</strong> {reservation.property.end_date}
+                    <strong>Check out date:</strong> {reservation.end_date}
                   </p>
                   <p>
-                    <strong>Number of nights:</strong> {reservation.property.number_of_nights}
+                    <strong>Number of nights:</strong>{" "}
+                    {reservation.number_of_nights}
                   </p>
                   <p>
-                    <strong>Total price:</strong> $200
+                    <strong>Total price:</strong> ${reservation.total_price}
                   </p>
-                  <div className="mt-6 inline-block cursor-pointer py-4 px-6 bg-airbnb text-white rounded-xl">
+                  <Link
+                    href={`/properties/${reservation.property.id}`}
+                    className="mt-6 inline-block cursor-pointer py-4 px-6 bg-airbnb text-white rounded-xl"
+                  >
                     Go to property
-                  </div>
+                  </Link>
                 </div>
               </div>
             </>
